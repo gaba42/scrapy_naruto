@@ -11,10 +11,10 @@ class BlogSpider(scrapy.Spider):
             extracted_data = scrapy.Request("https://naruto.fandom.com" + href,
                                             callback=self.parse_jutsu
                                             )
-            return extracted_data
+            yield extracted_data
 
         for next_page in response.css('a.mw-nextlink'):
-            return response.follow(next_page, self.parse)
+            yield response.follow(next_page, self.parse)
 
 
     def parse_jutsu(self, response):
